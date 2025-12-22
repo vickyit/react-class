@@ -1,5 +1,6 @@
  import './App.css' 
 import Product from './Products/Product'
+import User from './User'
  
 
 function App() { 
@@ -7,7 +8,10 @@ function App() {
  
   return (
     <>  
-    <Product/>
+    
+    <User/>
+    {/* <Product/> */}
+
 
     </>
   )
