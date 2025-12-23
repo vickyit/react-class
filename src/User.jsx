@@ -15,16 +15,26 @@ export default function User() {
         if(user.name == "")
         {
             setError( error =>( {...error, name:'name is required '}))
+            
             return false
+        }
+        else
+        {
+          setError( error =>( {...error, name:''}))
+            
         }
         if(user.age == "")
         {
             setError(error =>( {...error, age:'age is required '}))
             return false
         }
+        else
+        {
+           setError( error =>( {...error, age:''}))
+           
+        }
         
-
-        return true
+         return true
 
      }
 
