@@ -3,6 +3,7 @@ import Product from './Products/Product'
 import Register from './Register'
 import Role from './Role'
 import User from './User'
+import UserRole from './UserRole'
  
 
 function App() { 
@@ -11,7 +12,7 @@ function App() {
   return (
     <>  
 
-   <Role/>
+   <UserRole/>
     </>
   )
 }
