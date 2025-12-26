@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form';
 export default function UserRole() {
 
       
-      const {register, handleSubmit }= useForm();
+      const {register, handleSubmit, setValue }= useForm();
 
     
      const [roles, setRoles]=useState([]);
+     const [editId, setEditId]= useState(null); 
 
       const baseUrl="https://apistudent.codedonor.in/api/role"
 
@@ -43,10 +44,34 @@ export default function UserRole() {
          const result = await response.json();
           console.log(result.data);
           
-        setRoles(result.data);
+       // setRoles(result.data);
         
          console.log(roles)
      }
+
+     const UpdateRole =async(data) =>{
+       const response = await fetch(`${baseUrl}/${editId}`,{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(
+            {name:data.name}
+        )
+       });
+        if(!response.ok)
+        {
+            console.log('fetch Error');   
+        }
+         const result = await response.json();
+          console.log(result.data);
+          
+       // setRoles(result.data);
+        
+         console.log(roles)
+     }
+     
+
       const deleteRole =async(id) =>{
        const response = await fetch(`${baseUrl}/${id}`,{
         method:"DELETE"
@@ -66,11 +91,30 @@ export default function UserRole() {
     },[])
 
     const handleDelete =async(id)=>{
-        deleteRole(id)
+        await deleteRole(id)
     }
-    const onSubmit =(data)=>{
-        addRole(data);
-        roleList();
+
+    const handleEdit =async(data) =>{
+        setValue("name", data.name);
+        setEditId(data.id)
+    }
+
+
+    const onSubmit = async(data)=>{
+        
+
+       if(editId)
+       {
+        console.log(data);
+         await UpdateRole(data)
+         setEditId(null);
+       }
+       else
+       {
+      await addRole(data);
+       }
+
+        await roleList();
         //console.log(data)
 
     }
@@ -79,12 +123,15 @@ export default function UserRole() {
       <>
         <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("name")} />
-            <button>Submit </button>
+            <button>  
+              {editId?<span>Update</span>:<span>Submit</span>}
+               
+              </button>
         </form>
 
        {roles.map(item =>(
          <div key={item.id}> {item.name}
-           <button>Edit</button>
+           <button onClick={()=>handleEdit(item)}>Edit</button>
            <button onClick={()=>handleDelete(item.id)}>Delete</button>
            
           </div>
