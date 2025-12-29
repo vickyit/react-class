@@ -1,4 +1,5 @@
  import './App.css' 
+import RolePage from './pages/RolePage'
 import Product from './Products/Product'
 import Register from './Register'
 import Role from './Role'
@@ -12,7 +13,7 @@ function App() {
   return (
     <>  
 
-   <Role/>
+   <RolePage/>
     </>
   )
 }
