@@ -21,6 +21,11 @@ export default function useRole() {
         await   load();
     }
 
+    const update = async(id,formData)=>{
+         await  roleService.update(id,formData);
+        await   load();
+    }
+
     const remove =async(id)=>{
       await roleService.remove(id);
       await load();
@@ -31,6 +36,7 @@ export default function useRole() {
     create,
     remove,
     editing,
-    setEditing
+    setEditing,
+    update
   }
 }
